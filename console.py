@@ -125,7 +125,9 @@ class HBNBCommand(cmd.Cmd):
 
             for attribute in attributes:
                 name, value = attribute.split("=")
-                setattr(new_instance, eval(name), eval(value))
+                if '_' in value:
+                    value = value.replace('_', ' ')
+                setattr(new_instance, name, eval(value))
         elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
