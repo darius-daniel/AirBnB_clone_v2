@@ -128,6 +128,7 @@ class HBNBCommand(cmd.Cmd):
                 if '_' in value:
                     value = value.replace('_', ' ')
                 setattr(new_instance, name, eval(value))
+                storage.save()
         elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
