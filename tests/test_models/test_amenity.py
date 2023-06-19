@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """ A suit of unittests for Amenity objects
 """
-from tests.test_models.test_base_model import test_basemodel
+from tests.test_models.test_base_model import TestBaseModel
 from models.amenity import Amenity
 
 
-class test_Amenity(test_basemodel):
+class TestAmenity(TestBaseModel):
     """
     Perform tests on the Amenity class
     """
