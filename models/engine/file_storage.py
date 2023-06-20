@@ -66,6 +66,5 @@ class FileStorage:
         cls = str(obj.__class__).split('.')[-1].rstrip("'>")
         id = obj.__getattribute__('id')
         key = "{}.{}".format(cls, id)
-        print("Key: {}".format(key))
         if obj and key in FileStorage.__objects.keys():
             del FileStorage.__objects[key]
