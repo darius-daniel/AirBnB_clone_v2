@@ -63,6 +63,8 @@ class FileStorage:
         A method that deletes obj from __objects if it is inside and does
         nothing if not
         """
+        cls = str(obj.__class__).split('.')[-1]
+        id = obj.__getattribute__('id')
+        key = "{}.{}".format(cls, id)
         if obj and obj in FileStorage.__objects.keys():
-            print("\n\n\n=======\nObj: {}\n\n\n\======\n".format('obj'))
-            del FileStorage.__objects[obj]
+            del FileStorage.__objects[key]
