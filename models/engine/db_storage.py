@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """ A new Engine that interacts with a MySQL server rather than a json file
 """
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, MetaData
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.state import Base
 import os
 
@@ -26,22 +26,39 @@ class DBStorage:
             ),
             pool_pre_ping=True
         )
-        Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine)
-        self.__session = Session()
 
         if os.environ['HBNB_ENV'] == 'test':
-            self.__session.execute('DROP * FROM {}'.format(os.environ['HBNB_MYSQL_DB']))
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        if cls:
-            objs = self.__session.query(cls).all()
+        """ Query on the current database session depending on the class name
+        """
+        pass
 
-            result = {}
-            for obj in objs:
-                cls_name = str(cls).split('.')[-1].rstrip("'>")
-                obj_id = cls.__getattribute__('id')
-                key = "{}.{}".format(cls_name, obj_id)
-                result[key] = obj
+    def new(self, obj):
+        """Add new object the current database session
+        """
+        self.__session.add(obj)
 
-                return result
+    def save(self):
+        """Commit all changes of the current database session
+        """
+        self.__session.commit()
+
+    def delete(self, obj=None):
+        """Delete a non-None object @obj from the current db session
+        """
+        if obj:
+            self.__session.delete(obj)
+
+    def reload(self):
+        """ Creates all tables in the db and creates the current db session
+        from the engine
+        """
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(
+            bind=self.__engine,
+            expire_on_commit=False,
+        )
+        Session = scoped_session(session_factory)
+        session = Session()
