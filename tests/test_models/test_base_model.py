@@ -26,7 +26,6 @@ class TestBaseModel(unittest.TestCase):
         """
         Set up tests
         """
-        obj.base
 
     def tearDown(self):
         """
