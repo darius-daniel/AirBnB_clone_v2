@@ -63,5 +63,5 @@ class FileStorage:
         A method that deletes obj from __objects if it is inside and does
         nothing if not
         """
-        if obj and obj in FileStorage.__objects.items():
+        if obj and obj in FileStorage.__objects.keys():
             del FileStorage.__objects[obj]
