@@ -48,7 +48,7 @@ class DBStorage:
     def delete(self, obj=None):
         """Delete a non-None object @obj from the current db session
         """
-        if obj:
+        if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
