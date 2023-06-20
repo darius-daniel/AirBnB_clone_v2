@@ -64,4 +64,5 @@ class FileStorage:
         nothing if not
         """
         if obj and obj in FileStorage.__objects.keys():
+            print("\n\n\n=======\nObj: {}\n\n\n\======\n".format('obj'))
             del FileStorage.__objects[obj]
