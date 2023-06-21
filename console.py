@@ -130,14 +130,15 @@ class HBNBCommand(cmd.Cmd):
                 setattr(new_instance, name, eval(value))
 
             print(new_instance.id)
-            models.storage.save()
         elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
         else:
             new_instance = HBNBCommand.classes[args]()
-            models.storage.save()
             print(new_instance.id)
-            models.storage.save()
+
+        models.storage.save()
+        models.storage.reload()
 
     def help_create(self):
         """ Help information for the create method """
@@ -216,12 +217,13 @@ class HBNBCommand(cmd.Cmd):
 
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
+            if args not in HBNBCommand.classes.keys():
                 print("** class doesn't exist **")
-                return
-            for k, v in models.storage.all():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+            else:
+                print("all: {}".format(models.storage.all()))
+                for k, v in models.storage.all():
+                    if k.split('.')[0] == args:
+                        print_list.append(str(v))
         else:
             for k, v in models.storage.all():
                 print_list.append(str(v))
