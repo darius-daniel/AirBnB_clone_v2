@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """ A new Engine that interacts with a MySQL server rather than a json file
 """
-from sqlalchemy import create_engine
+from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import Base
 from models.amenity import Amenity
 from models.city import City
@@ -40,20 +41,17 @@ class DBStorage:
         """ Query on the current database session depending on the class name
         """
         result = {}
+        classes = []
         if cls:
-            if type(cls) is str:
-                cls = eval(cls)
-            query = self.__session.query(cls)
-            for elem in query:
-                key = "{}.{}".format(type(elem).__name__, elem.id)
-                result[key] = elem
+            classes.append(cls)
         else:
-            obj_classes = [State, City, User, Place, Review, Amenity]
-            for obj_cls in obj_classes:
-                query = self.__session.query(obj_cls)
-                for elem in query:
-                    key = "{}.{}".format(type(elem).__name__, elem.id)
-                    result[key] = elem
+            classes += [State, City] #User, Place, Review, Amenity]
+
+        for c in classes:
+            query = self.__session.query(c).all()
+            for item in query:
+                key = "{}.{}".format(type(item).__name__, item.id)
+                result[key] = item
         return (result)
 
     def new(self, obj):
@@ -82,4 +80,4 @@ class DBStorage:
             expire_on_commit=False,
         )
         Session = scoped_session(session_factory)
-        session = Session()
+        self.__session = Session()
