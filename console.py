@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb)')
+            print('(hbnb) ', end='')
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
@@ -128,8 +128,9 @@ class HBNBCommand(cmd.Cmd):
                 if '_' in value:
                     value = value.replace('_', ' ')
                 setattr(new_instance, name, eval(value))
-                print(new_instance.id)
-                models.storage.save()
+
+            print(new_instance.id)
+            models.storage.save()
         elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
