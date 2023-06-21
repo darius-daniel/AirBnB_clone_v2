@@ -16,4 +16,8 @@ class City(BaseModel, Base):
         primary_key=True
     )
     name = Column(String(128), nullable=False)
-    places = relationship('Places', 'cities')
+    places = relationship(
+        'Places',
+        backref='cities'
+        cascade='all, delete, delete-orphan'
+    )
