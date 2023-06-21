@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ A new Engine that interacts with a MySQL server rather than a json file
 """
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models.state import Base
+from models.base_model import Base
 import os
 
 
