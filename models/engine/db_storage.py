@@ -4,6 +4,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 import os
 
 
@@ -19,21 +25,36 @@ class DBStorage:
         """
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.format(
-                os.environ['HBNB_MYSQL_USER'],
-                os.environ['HBNB_MYSQL_PWD'],
-                os.environ['HBNB_MYSQL_HOST'],
-                os.environ['HBNB_MYSQL_DB']
+                os.getenv('HBNB_MYSQL_USER'),
+                os.getenv('HBNB_MYSQL_PWD'),
+                os.getenv('HBNB_MYSQL_HOST'),
+                os.getenv('HBNB_MYSQL_DB')
             ),
             pool_pre_ping=True
         )
 
-        if os.environ['HBNB_ENV'] == 'test':
+        if os.getenv("HBNB_ENV") == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """ Query on the current database session depending on the class name
         """
-        pass
+        result = {}
+        if cls:
+            if type(cls) is str:
+                cls = eval(cls)
+            query = self.__session.query(cls)
+            for elem in query:
+                key = "{}.{}".format(type(elem).__name__, elem.id)
+                result[key] = elem
+        else:
+            obj_classes = [State, City, User, Place, Review, Amenity]
+            for obj_cls in obj_classes:
+                query = self.__session.query(obj_cls)
+                for elem in query:
+                    key = "{}.{}".format(type(elem).__name__, elem.id)
+                    result[key] = elem
+        return (result)
 
     def new(self, obj):
         """Add new object the current database session
