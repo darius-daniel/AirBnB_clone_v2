@@ -41,7 +41,8 @@ def do_deploy(archive_path):
 
     put(archive_path, '/tmp/', use_sudo=True)
 
-    dest_dir = archive_path.split('.')[0]
+    dest_dir = archive_path.split('/')[-1].split('.')[0]
+    print(dest_dir)
     releases = "/data/web_static/releases/{}".format(dest_dir)
     symbolic_ln = "/data/web_static/current"
 
