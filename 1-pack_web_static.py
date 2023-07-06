@@ -26,7 +26,8 @@ def do_pack():
                 present.second
         )
         local("tar -cvzf {} web_static".format(tgz_path))
-        print("web_static packed: {} -> {}Bytes".format(tgz_path, os.path.getsize(tgz_path)))
+        size = os.path.getsize(tgz_path)
+        print("web_static packed: {} -> {}Bytes".format(tgz_path, size))
         return tgz_path
-    except:
+    except Exception:
         return None
