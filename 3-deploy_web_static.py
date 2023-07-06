@@ -52,7 +52,6 @@ def do_deploy(archive_path):
         put(archive_path, '/tmp/')
 
         archive_name = archive_path.split('/')[-1].split('.')[0]
-        print(archive_name)
         releases = "/data/web_static/releases/{}".format(archive_name)
         symbolic_ln = "/data/web_static/current"
 
