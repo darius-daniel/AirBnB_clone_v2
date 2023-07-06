@@ -2,11 +2,15 @@
 """
 A Fabric script that distributes an archive to web servers
 """
-from fabric.api import local
-from fabric.api import put
-from fabric.api import run
+from fabric.api import *
 import datetime
 import os
+
+env.hosts = [
+    '35.153.19.179',
+    '34.201.174.149'
+]
+env.user = "ubuntu"
 
 
 def do_pack():
