@@ -33,6 +33,8 @@ def do_pack():
         )
         print(tgz_path)
         local("tar -cvzf {} web_static".format(tgz_path))
+        size = os.path.getsize(tgz_path)
+        print("web_static packed: {} -> {}Bytes".format(tgz_path, size))
         return tgz_path
     except:
         return False
