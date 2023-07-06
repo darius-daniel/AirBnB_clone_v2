@@ -12,6 +12,7 @@ env.hosts = [
     '34.201.174.149'
 ]
 env.user = "ubuntu"
+env.password = "~/.ssh/alx_ssh_key"
 
 
 def do_pack():

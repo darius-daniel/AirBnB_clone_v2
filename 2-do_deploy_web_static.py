@@ -12,6 +12,7 @@ env.hosts = [
     '34.201.174.149'
 ]
 env.user = "ubuntu"
+env.password = "~/.ssh/alx_ssh_key"
 
 
 def do_deploy(archive_path):
@@ -31,11 +32,12 @@ def do_deploy(archive_path):
 
         temp_path = '/tmp/{}'.format(archive_name)
         run("mkdir -p {}".format(releases))
-        run("tar -xf {}.tgz -C {}".format(temp_path, releases))
-        run("rm -rf archive_path")
-
+        run("tar -xzf {}.tgz -C {}".format(temp_path, releases))
+        run("rm {}.tgz".format(temp_path))
+        run("mv {}/web_static/* {}/".format(releases, releases))
+        run("rm -rf {}/web_static".format(releases))
         run("rm -rf {}".format(symbolic_ln))
-        run("ln -s {} {}".format(releases, symbolic_ln))
+        run("ln -s {}/ {}".format(releases, symbolic_ln))
         print("New version deployed!")
         return True
     except:
