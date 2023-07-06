@@ -34,7 +34,7 @@ def do_deploy(archive_path):
         run("mkdir -p {}".format(releases))
         run("tar -xzf {}.tgz -C {}".format(temp_path, releases))
         run("rm {}.tgz".format(temp_path))
-        run("mv {}/web_static/* {}/".format(releases, releases))
+        run("cp -r {}/web_static/* {}/".format(releases, releases))
         run("rm -rf {}/web_static".format(releases))
         run("rm -rf {}".format(symbolic_ln))
         run("ln -s {}/ {}".format(releases, symbolic_ln))
