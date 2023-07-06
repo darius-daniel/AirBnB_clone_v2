@@ -34,7 +34,7 @@ def do_deploy(archive_path):
         run("tar -xf {}.tgz -C {}".format(temp_path, releases))
         run("rm -rf archive_path")
 
-        run("rm {}".format(symbolic_ln))
+        run("rm -rf {}".format(symbolic_ln))
         run("ln -s {} {}".format(releases, symbolic_ln))
         print("New version deployed!")
         return True
