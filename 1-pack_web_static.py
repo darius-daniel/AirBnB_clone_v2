@@ -5,7 +5,6 @@ web_static folder of this repo
 """
 from fabric.api import local
 import datetime
-import datetime
 import os
 
 
