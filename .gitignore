@@ -3,3 +3,4 @@ main_delete.py
 file.json
 fabric_installer.sh
 fabfile.py
+__pycache__

@@ -25,7 +25,6 @@ def do_pack():
                 present.minute,
                 present.second
         )
-        print(tgz_path)
         local("tar -cvzf {} web_static".format(tgz_path))
         return tgz_path
     except:
