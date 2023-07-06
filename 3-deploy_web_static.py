@@ -32,12 +32,12 @@ def do_pack():
                 present.minute,
                 present.second
         )
-        print(tgz_path)
+        print("Packing web_static to {}".format(tgz_path))
         local("tar -cvzf {} web_static".format(tgz_path))
         size = os.path.getsize(tgz_path)
         print("web_static packed: {} -> {}Bytes".format(tgz_path, size))
         return tgz_path
-    except:
+    except Exception:
         return False
 
 
@@ -58,14 +58,15 @@ def do_deploy(archive_path):
 
         temp_path = '/tmp/{}'.format(archive_name)
         run("mkdir -p {}".format(releases))
-        run("tar -xf {}.tgz -C {}".format(temp_path, releases))
-        run("rm -rf archive_path")
-
+        run("tar -xzf {}.tgz -C {}".format(temp_path, releases))
+        run("rm {}.tgz".format(temp_path))
+        run("cp -r {}/web_static/* {}/".format(releases, releases))
+        run("rm -rf {}/web_static".format(releases))
         run("rm -rf {}".format(symbolic_ln))
-        run("ln -s {} {}".format(releases, symbolic_ln))
+        run("ln -s {}/ {}".format(releases, symbolic_ln))
         print("New version deployed!")
         return True
-    except:
+    except Exception:
         return False
 
 

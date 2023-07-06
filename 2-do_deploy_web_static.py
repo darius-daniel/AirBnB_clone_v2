@@ -40,6 +40,5 @@ def do_deploy(archive_path):
         run("ln -s {}/ {}".format(releases, symbolic_ln))
         print("New version deployed!")
         return True
-    except:
+    except Exception:
         return False
-

@@ -25,6 +25,7 @@ def do_pack():
                 present.minute,
                 present.second
         )
+        print("Packing web_static to {}".format(tgz_path))
         local("tar -cvzf {} web_static".format(tgz_path))
         size = os.path.getsize(tgz_path)
         print("web_static packed: {} -> {}Bytes".format(tgz_path, size))
