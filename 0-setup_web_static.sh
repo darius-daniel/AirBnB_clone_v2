@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # A script that sets up web servers for the deployment of web_static
 apt update -y
 apt install -y nginx
