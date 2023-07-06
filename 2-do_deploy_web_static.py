@@ -4,6 +4,7 @@ A Fabric script that distributes an archive to web servers
 """
 from fabric.api import local
 from fabric.api import put
+from fabric.api import run
 import datetime
 import os
 
@@ -39,15 +40,19 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
 
-    put(archive_path, '/tmp/', use_sudo=True)
+    try:
+        put(archive_path, '/tmp/', use_sudo=True)
 
-    dest_dir = archive_path.split('/')[-1].split('.')[0]
-    print(dest_dir)
-    releases = "/data/web_static/releases/{}".format(dest_dir)
-    symbolic_ln = "/data/web_static/current"
+        archive_name = archive_path.split('/')[-1].split('.')[0]
+        releases = "/data/web_static/releases/{}".format(archive_name)
+        symbolic_ln = "/data/web_static/current"
 
-    local("tar -xf archive_path -C {}".format(releases))
-    local("rm archive_path")
+        temp_path = '/tmp/{}'.format(archive_name)
+        run("mkdir -p {}".format(releases))
+        run("tar -xf {} -C {}".format(temp_path, releases))
+        local("rm -rf archive_path")
 
-    local("rm {}".format(symbolic_ln))
-    local("ln -s {} {}".format(releases, symbolic_ln))
+        local("rm {}".format(symbolic_ln))
+        local("ln -s {} {}".format(releases, symbolic_ln))
+    except:
+        return False
