@@ -24,21 +24,15 @@ def do_pack():
         if not os.path.exists("versions"):
             local("mkdir versions")
         present = datetime.datetime.now()
-        tgz_path = "versions/web_static_{}{}{}{}{}{}.tgz".format(
-                present.year,
-                present.month,
-                present.day,
-                present.hour,
-                present.minute,
-                present.second
-        )
+        strf = "%Y%m%d%H%M%S"
+        tgz_path = "versions/web_static_{}.tgz".format(present.strftime(strf))
         print("Packing web_static to {}".format(tgz_path))
         local("tar -cvzf {} web_static".format(tgz_path))
         size = os.path.getsize(tgz_path)
         print("web_static packed: {} -> {}Bytes".format(tgz_path, size))
         return tgz_path
     except Exception:
-        return False
+        return None
 
 
 def do_deploy(archive_path):
