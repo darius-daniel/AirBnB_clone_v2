@@ -14,6 +14,30 @@ env.hosts = [
 env.user = "ubuntu"
 
 
+def do_pack():
+    """
+    A function that generates a .tgz archive from the contents of the
+    web_static directory
+    """
+    try:
+        if not os.path.exists("versions"):
+            local("mkdir versions")
+        present = datetime.datetime.now()
+        tgz_path = "versions/web_static_{}{}{}{}{}{}.tgz".format(
+                present.year,
+                present.month,
+                present.day,
+                present.hour,
+                present.minute,
+                present.second
+        )
+        print(tgz_path)
+        local("tar -cvzf {} web_static".format(tgz_path))
+        return tgz_path
+    except:
+        return False
+
+
 def do_deploy(archive_path):
     """
     A function to distribute an archive to web servers
@@ -34,10 +58,21 @@ def do_deploy(archive_path):
         run("tar -xf {}.tgz -C {}".format(temp_path, releases))
         run("rm -rf archive_path")
 
-        run("rm {}".format(symbolic_ln))
+        run("rm -rf {}".format(symbolic_ln))
         run("ln -s {} {}".format(releases, symbolic_ln))
         print("New version deployed!")
         return True
     except:
         return False
 
+
+def deploy():
+    """
+    Deploys a new version to web servers
+    """
+    archive_path = do_pack()
+    print(archive_path)
+    if archive_path is None:
+        return False
+
+    return do_deploy(archive_path)
