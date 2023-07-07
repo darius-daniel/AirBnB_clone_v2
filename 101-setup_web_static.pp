@@ -38,7 +38,7 @@ exec { "create_new_link":
 
 exec { "change_ownership":
     provider => shell,
-    command  => "sudo chown -R ubuntu:ubuntu /data/",
+    command  => "sudo chown -R ubuntu:ubuntu /data/; sudo chmod -R 777 /data/ ",
     before   => Exec['configure_and_restart_nginx']
 }
 
