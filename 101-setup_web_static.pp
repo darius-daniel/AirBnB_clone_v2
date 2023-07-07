@@ -38,13 +38,13 @@ exec { "create_new_link":
 
 exec { "change_ownership":
     provider => shell,
-    command  => "sudo chown -R ubuntu:ubuntu /data/; sudo chmod -R 777 /data/ ",
+    command  => "sudo chown -R ubuntu:ubuntu /data/ ; sudo chmod -R 777 /data/",
     before   => Exec['configure_and_restart_nginx']
 }
 
 exec { "configure_and_restart_nginx":
     provider => shell,
-    command  => "sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}\n' /etc/nginx/sites-available/default ; sudo service nginx restart",
+    command  => "sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current;\n\t\tautoindex off;\n\t}\n' /etc/nginx/sites-available/default ; sudo service nginx restart",
     before   => Exec['exit_success']
 }
 
