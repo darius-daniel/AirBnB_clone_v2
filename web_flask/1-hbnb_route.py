@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ A script that starts a Flask web application """
-from flask import Flask, request
+from flask import Flask
+
 
 app = Flask(__name__)
 
@@ -8,9 +9,17 @@ app = Flask(__name__)
 @app.route('/', strict_slashes=False)
 def index():
     """
-    Displays a message for the route
+    Displays a message when the index page is requested
     """
     return "Hello HBNB!"
+
+
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """
+    Displays a message when the @hbnb page is requested
+    """
+    return "HBNB"
 
 
 if __name__ == '__main__':
