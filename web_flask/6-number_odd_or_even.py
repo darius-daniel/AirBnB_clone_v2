@@ -63,7 +63,20 @@ def num_temp_text(n):
         return render_template('5-number.html', number=int(n))
 
 
-@app.route
+@app.route('/number_odd_or_even/<n>', strict_slashes=False)
+def odd_or_even(n):
+    """ Display a HTML page only if @n is an integer
+    """
+    try:
+        int(n)
+    except Exception:
+        pass
+    else:
+        n = int(n)
+        string = 'odd'
+        if n % 2 == 0:
+            string = 'even'
+        return render_template('6-number_odd_or_even.html', number=n, div_by_2=string)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

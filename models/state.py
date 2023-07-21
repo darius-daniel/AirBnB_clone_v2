@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+import models
 
 
 class State(BaseModel, Base):
@@ -15,8 +16,16 @@ class State(BaseModel, Base):
     def cities(self):
         """Returns the list of city instances with state_id = self.State.id
         """
+        data = models.storage.all()
+        city_objs = []
         matches = []
-        for city in State.cities:
-            if city.state_id == State.id:
-                matches.append(city)
+
+        for key in data:
+            city = key.split('.')
+            if city[0] == 'City':
+                city_objs.append(data[key])
+
+        for city_obj in city_objs:
+            if city_obj.state_id == self.id:
+                matches.append(city_obj)
         return matches
