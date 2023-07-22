@@ -7,7 +7,6 @@ from models.review import Review
 from models.amenity import Amenity
 from sqlalchemy import Column, String, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 
 
 class Place(BaseModel, Base):
@@ -50,14 +49,3 @@ class Place(BaseModel, Base):
                     result.append(item)
 
             return result
-        
-        @property
-        def amenities(self):
-            """ Returns list of amenity ids """
-            return self.amenity_ids
-
-        @amenities.setter
-        def amenities(self, obj=None):
-            """ Appends amenity ids to the attribute """
-            if type(obj) is Amenity and obj.id not in self.amenity_ids:
-                self.amenity_ids.append(obj.id)
