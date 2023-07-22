@@ -41,11 +41,11 @@ class DBStorage:
         """ Query on the current database session depending on the class name
         """
         result = {}
-        classes = []
+        classes = [State, City, User, Place, Review, Amenity]
         if cls:
-            classes.append(cls)
-        else:
-            classes += [State, City]  #, User, Place, Review, Amenity]
+            if type(cls) is str:
+                cls = eval(cls)
+            classes = [cls]
 
         for c in classes:
             query = self.__session.query(c).all()
