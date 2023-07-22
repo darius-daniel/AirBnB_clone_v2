@@ -45,7 +45,7 @@ class DBStorage:
         if cls:
             classes.append(cls)
         else:
-            classes += [State, City, User, Place] # Review, Amenity]
+            classes += [State, City, User, Place]  # Review, Amenity]
 
         for c in classes:
             query = self.__session.query(c).all()
