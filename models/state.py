@@ -17,15 +17,18 @@ class State(BaseModel, Base):
         """Returns the list of city instances with state_id = self.State.id
         """
         data = models.storage.all()
-        city_objs = []
-        matches = []
 
-        for key in data:
-            city = key.split('.')
-            if city[0] == 'City':
-                city_objs.append(data[key])
+        city_objs = [data[key] for key in data if key.split('.')[0] == 'City']
+        matches = [
+            city_obj for city_obj in city_objs if city_obj.state_id == self.id
+        ]
 
-        for city_obj in city_objs:
-            if city_obj.state_id == self.id:
-                matches.append(city_obj)
+        # for key in data:
+        #     city = key.split('.')
+        #     if city[0] == 'City':
+        #         city_objs.append(data[key])
+
+        # for city_obj in city_objs:
+        #     if city_obj.state_id == self.id:
+        #         matches.append(city_obj)
         return matches
