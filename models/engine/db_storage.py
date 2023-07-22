@@ -48,7 +48,7 @@ class DBStorage:
             classes = [cls]
 
         for c in classes:
-            query = self.__session.query(c).all()
+            query = self.__session.query(c)
             for item in query:
                 key = "{}.{}".format(type(item).__name__, item.id)
                 result[key] = item
