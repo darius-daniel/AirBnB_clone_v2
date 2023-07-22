@@ -3,9 +3,20 @@
 import models
 import os
 from models.base_model import BaseModel, Base
-from models.review import Review
-from sqlalchemy import Column, String, Integer, ForeignKey, Float
+from sqlalchemy import Table, Column, String, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
+
+
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("place_id", String(60),
+                             ForeignKey("places.id"),
+                             primary_key=True,
+                             nullable=False),
+                      Column("amenity_id", String(60),
+                             ForeignKey("amenities.id"),
+                             primary_key=True,
+                             nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -36,14 +47,26 @@ class Place(BaseModel, Base):
             Returns the list of Review instances with their place_id == Place.id
             """
             objs = models.storage.all()
+            classes = []
             result = []
 
             for obj in objs:
                 if obj.split('.')[0] == 'Review':
-                    result.append(objs[obj])
+                    classes.append(objs[obj])
 
-            for item in result:
+            for item in classes:
                 if (item.place_id == self.id):
-                    result.remove(item)
+                    result.append(item)
 
             return result
+        
+        @property
+        def amenities(self):
+            """ Returns list of amenity ids """
+            return self.amenity_ids
+
+        @amenities.setter
+        def amenities(self, obj=None):
+            """ Appends amenity ids to the attribute """
+            if type(obj) is Amenity and obj.id not in self.amenity_ids:
+                self.amenity_ids.append(obj.id)
