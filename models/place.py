@@ -47,4 +47,3 @@ class Place(BaseModel, Base):
                     result.remove(item)
 
             return result
-        

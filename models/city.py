@@ -20,4 +20,3 @@ class City(BaseModel, Base):
         backref='cities',
         cascade='all, delete, delete-orphan'
     )
-    
