@@ -76,7 +76,9 @@ def odd_or_even(n):
         string = 'odd'
         if n % 2 == 0:
             string = 'even'
-        return render_template('6-number_odd_or_even.html', number=n, div_by_2=string)
+        return render_template(
+            '6-number_odd_or_even.html', number=n, div_by_2=string
+        )
 
 
 if __name__ == '__main__':
