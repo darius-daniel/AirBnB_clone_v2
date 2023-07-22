@@ -56,11 +56,11 @@ def num_temp_text(n):
     Display a HTML page if @n is an integer
     """
     try:
-        int(n)
+        n = int(n)
     except Exception:
         abort(404)
     else:
-        return render_template('5-number.html', number=int(n))
+        return render_template('5-number.html', number=n)
 
 
 if __name__ == '__main__':
