@@ -11,8 +11,7 @@ class City(BaseModel, Base):
     state_id = Column(
         String(60),
         ForeignKey('states.id'),
-        nullable=False,
-        primary_key=True
+        nullable=False
     )
     name = Column(String(128), nullable=False)
     places = relationship(

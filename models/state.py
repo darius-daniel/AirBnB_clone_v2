@@ -10,25 +10,25 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship('City', backref='state')
+    cities = relationship(
+        'City', cascade='all, delete, delete-orphan', backref='state'
+    )
 
     @property
     def cities(self):
         """Returns the list of city instances with state_id = self.State.id
         """
         data = models.storage.all()
+        city_objs = []
+        matches = []
 
-        city_objs = [data[key] for key in data if key.split('.')[0] == 'City']
-        matches = [
-            city_obj for city_obj in city_objs if city_obj.state_id == self.id
-        ]
+        for key in data:
+            city = key.split('.')
+            if city[0] == 'City':
+                city_objs.append(data[key])
 
-        # for key in data:
-        #     city = key.split('.')
-        #     if city[0] == 'City':
-        #         city_objs.append(data[key])
+        for city_obj in city_objs:
+            if city_obj.state_id == self.id:
+                matches.append(city_obj)
 
-        # for city_obj in city_objs:
-        #     if city_obj.state_id == self.id:
-        #         matches.append(city_obj)
         return matches
