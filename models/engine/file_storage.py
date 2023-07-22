@@ -67,8 +67,8 @@ class FileStorage:
             cls = str(obj.__class__).split('.')[-1].rstrip("'>")
             id = obj.__getattribute__('id')
             key = "{}.{}".format(cls, id)
-            if key in FileStorage.__objects.keys():
-                del FileStorage.__objects[key]
+            if key in self.__objects.keys():
+                del self.__objects[key]
 
     def close(self):
         """ Calls reload()
