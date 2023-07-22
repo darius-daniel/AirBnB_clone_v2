@@ -47,7 +47,7 @@ def num_text(n):
     except Exception:
         abort(404)
     else:
-        return "n is a number"
+        return "{} is a number".format(n)
 
 
 @app.route('/number_template/<n>', strict_slashes=False)
