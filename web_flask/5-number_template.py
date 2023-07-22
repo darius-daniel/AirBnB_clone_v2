@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ A script that starts a Flask web application """
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 
 
 app = Flask(__name__)
@@ -45,7 +45,7 @@ def num_text(n):
     try:
         int(n)
     except Exception:
-        pass
+        abort(404)
     else:
         return "n is a number"
 
@@ -58,10 +58,10 @@ def num_temp_text(n):
     try:
         int(n)
     except Exception:
-        pass
+        abort(404)
     else:
         return render_template('5-number.html', number=int(n))
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
