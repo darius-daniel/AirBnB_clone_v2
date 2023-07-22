@@ -25,7 +25,7 @@ class DBStorage:
         Initialize a new instance of DBStorage
         """
         self.__engine = create_engine(
-            'mysql+mysqlconnector://{}:{}@{}/{}'.format(
+            'mysql+mysqldb://{}:{}@{}/{}'.format(
                 os.getenv('HBNB_MYSQL_USER'),
                 os.getenv('HBNB_MYSQL_PWD'),
                 os.getenv('HBNB_MYSQL_HOST'),
@@ -45,7 +45,7 @@ class DBStorage:
         if cls:
             classes.append(cls)
         else:
-            classes += [State, City, User, Place]  # Review, Amenity]
+            classes += [State, City, User, Place, Review, Amenity]
 
         for c in classes:
             query = self.__session.query(c).all()
