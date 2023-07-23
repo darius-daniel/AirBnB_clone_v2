@@ -5,7 +5,8 @@ import os
 from models.base_model import BaseModel, Base
 from models.review import Review
 from models.amenity import Amenity
-from sqlalchemy import Column, String, Integer, ForeignKey, Float
+from sqlalchemy import Column, String, Integer, ForeignKey, Float 
+from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy.orm import relationship
 
 
