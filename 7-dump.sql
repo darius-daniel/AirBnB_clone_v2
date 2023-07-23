@@ -42,7 +42,8 @@ CREATE TABLE `cities` (
   `name` varchar(128) NOT NULL,
   `state_id` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `state_id` (`state_id`)
+  KEY `state_id` (`state_id`),
+  CONSTRAINT `cities_ibfk_1` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
