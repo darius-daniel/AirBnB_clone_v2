@@ -5,7 +5,7 @@ import os
 from models.base_model import BaseModel, Base
 from models.review import Review
 from models.amenity import Amenity
-from sqlalchemy import Column, String, Integer, ForeignKey, Float 
+from sqlalchemy import Column, String, Integer, ForeignKey, Float, Engine
 from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy.orm import relationship
 
@@ -24,6 +24,7 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+    __table_args__ = {'mysql_engine': 'InnoDB', 'mysql_charset': 'latin1'}
 
     if os.getenv("HBNB_TYPE_STORAGE") == 'db':
         reviews = relationship(
