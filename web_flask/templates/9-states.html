@@ -4,12 +4,12 @@
     <TITLE>HBNB</TITLE>
   </HEAD>
   <BODY>
-    {% if items %}
+    {% if states %}
     <H1>{{ table }}</H1>
     <H3>Cities:</H3>
     <UL>
-      {%for item in items.cities | sort(attribute='name')%}
-      <LI>{{ item.id }}: <B>{{ item.name }}</B></LI>
+      {%for state in states.cities | sort(attribute='name')%}
+      <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
       {% endfor %}
     </UL>
     {% else %}
