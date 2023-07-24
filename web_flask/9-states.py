@@ -19,21 +19,23 @@ def show_states(id=None):
     """ Render an HTML template """
     states = storage.all(State)
 
-    if not id:
-        states_dict = {value.id: value.name for value in states.values()}
-        return render_template(
-            '7-states_list.html', table="States", states=states_dict
-        )
-    else:
-        obj = f"State.{id}"
-        if obj in states:
-            return render_template(
-                '9-states.html',
-                table="State: {}".format(states[obj].name),
-                states=states[obj]
-            )
+    states = storage.all(State)
 
-    return render_template('9-states.html', states=None)
+    if not id:
+        dict_to_html = {value.id: value.name for value in states.values()}
+        return render_template(
+            '7-states_list.html',
+            Table="States",
+            items=dict_to_html)
+
+    st = "State.{}".format(id)
+    if st in states:
+        return render_template(
+            '9-states.html',
+            Table="State: {}".format(states[st].name),
+            items=states[st])
+
+    return render_template('9-states.html', items=None)
 
 
 if __name__ == '__main__':
