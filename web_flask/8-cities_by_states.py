@@ -4,7 +4,7 @@ Starts a Flask application
 """
 from flask import Flask, render_template
 from models import storage
-from models.city import City
+from models.state import State
 
 app = Flask(__name__)
 
@@ -17,8 +17,10 @@ def remove_session(exception=None):
 
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
-    cities = storage.all(City)
-    cities_dict = {city.id: city.name for city in cities.keys().sorted()}
+    states = storage.all(State)
+    return render_template(
+        '8-cities_by_states.html', Table='States', states=states
+    )
 
 
 if __name__ == '__main__':
