@@ -4,7 +4,7 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        <H1>{{ Table }}</H1>
+        <H1>{{ table }}</H1>
         <UL>
             {% for id, name in states | dictsort(false, 'value') %}
             <LI>{{ id }}: <B>{{ name }}</B></LI>

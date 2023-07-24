@@ -21,7 +21,7 @@ def ordered_cities_by_states():
     """ Displays an HTML Page """
     states = storage.all(State)
     return render_template(
-        '8-cities_by_states.html', cls='States', states=states
+        '8-cities_by_states.html', table='States', states=states
     )
 
 
