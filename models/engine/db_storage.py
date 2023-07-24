@@ -24,7 +24,7 @@ class DBStorage:
         Initialize a new instance of DBStorage
         """
         self.__engine = create_engine(
-            'mysql+mysqlconnector://{}:{}@{}/{}'.format(
+            'mysql+mysqldb://{}:{}@{}/{}'.format(
                 os.getenv('HBNB_MYSQL_USER'),
                 os.getenv('HBNB_MYSQL_PWD'),
                 os.getenv('HBNB_MYSQL_HOST'),
