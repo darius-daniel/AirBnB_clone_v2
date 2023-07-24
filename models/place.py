@@ -24,7 +24,6 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
-    __table_args__ = {'mysql_charset': 'latin1'}
 
     if os.getenv("HBNB_TYPE_STORAGE") == 'db':
         reviews = relationship(

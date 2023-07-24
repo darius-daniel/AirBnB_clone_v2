@@ -22,4 +22,3 @@ class User(BaseModel, Base):
         cascade='all, delete, delete-orphan',
         backref='user'
     )
-    __table_args__ = {'mysql_charset': 'latin1'}
