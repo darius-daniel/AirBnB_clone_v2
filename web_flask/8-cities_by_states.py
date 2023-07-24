@@ -6,6 +6,7 @@ from flask import Flask, render_template
 from models import storage
 from models.state import State
 
+
 app = Flask(__name__)
 
 
@@ -16,10 +17,11 @@ def remove_session(exception=None):
 
 
 @app.route('/cities_by_states', strict_slashes=False)
-def cities_by_states():
+def ordered_cities_by_states():
+    """ Displays an HTML Page """
     states = storage.all(State)
     return render_template(
-        '8-cities_by_states.html', Table='States', states=states
+        '8-cities_by_states.html', cls='States', states=states
     )
 
 
