@@ -51,7 +51,7 @@ class DBStorage:
             for item in query:
                 key = "{}.{}".format(type(item).__name__, item.id)
                 result[key] = item
-        return (result)
+        return result
 
     def new(self, obj):
         """Add new object the current database session
