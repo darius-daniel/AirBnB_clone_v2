@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String
 
 
-class Amenity(BaseModel):
+class Amenity(BaseModel, Base):
     """
     Class definition for amenities
     """
