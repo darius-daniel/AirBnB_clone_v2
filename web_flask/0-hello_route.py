@@ -5,7 +5,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/airbnb-onepage/', strict_slashes=False)
 def index():
     """
     Displays a message for the route
